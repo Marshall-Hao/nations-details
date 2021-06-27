@@ -12,7 +12,8 @@ const routes = [
   {
     path: '/nations/:name',
     name: 'Details',
-    component: Details
+    component: Details,
+    props: true
   },
 ]
 

@@ -17,11 +17,13 @@
     </select>
   </div>
   <div v-else>
-    <div class="w-screen flex justify-between px-5 md:px-14 items-center my-7" id="function-bar">
+    <div @click ="handleClick" class="w-screen flex justify-between px-5 md:px-14 items-center my-7" id="function-bar">
+      <!-- <router-link :to="{name: 'Home'}"> -->
         <div @click="handleClick" class="text-gray-500 hover:text-gray-600 bg-gray-50 hover:bg-gray-200 shadow-lg px-11 py-3 flex justify-between items-center  rounded-md my-3 w-40">
           <i class="fas fa-arrow-circle-left "></i>
           <div class=" font-medium" >Back</div>
         </div>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
@@ -35,7 +37,7 @@ export default {
     const currentRouterName = router.currentRoute.value.name
 
     const handleClick = ()=> {
-      router.push({ name:'Home' })
+      router.push({name: 'Home'})
     }
     return { currentRouterName,handleClick }
   }

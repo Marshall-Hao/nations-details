@@ -1,10 +1,54 @@
 <template>
-  card
+    <div class="px-5 w-screen  items-center mb-5 md:px-14 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12" id="card-detail">
+        <img class="w-full h-full md:h-5/6 object-cover shadow-xl " :src="nation.flag" alt="flag">
+        <div class="py-1 md:py-12 flex flex-col">
+        <div class="text-4xl font-bold">{{nation.name}}</div>
+            <div class="my-10 flex flex-wrap md:flex-nowrap justify-between">
+            <div class="w-full">
+                <div class="py-1 font-medium text-md mb-1">Native Name: <span class="font-light">{{nation.nativeName}}</span></div>
+                <div class="py-1 font-medium text-md mb-1">Population: <span class="font-light">{{nation.population}}</span></div>
+                <div class="py-1 font-medium text-md mb-1">Region: <span class="font-light">{{nation.region}}</span></div>
+                <div class="py-1 font-medium text-md mb-1">Sub Region: <span class="font-light">{{nation.subregion}}</span></div>
+                <div class="py-1 font-medium text-md mb-1">Capital: <span class="font-light">{{nation.capital}}</span></div>
+            </div>
+            <div class="w-full mt-8 md:mt-0">
+                <div class="py-1 font-medium text-md mb-1">Top Level Domain: <span class="font-light">{{nation.topLevelDomain[0]}}</span></div>
+                <div class="py-1 font-medium text-md mb-1">Currencies: <span class="font-light">{{nation.currencies[0].code}}</span></div>
+                <div class="py-1 font-medium text-md mb-1 space-x-4">Languages: 
+                    <span v-for="language in nation.languages" :key="language" class="font-light">
+                    {{language.name}}</span>
+                    </div>
+            </div>
+            </div>
+            <div class="flex flex-wrap md:flex-nowrap mt-3 items-baseline">
+            <div class="md:w-2/6 font-medium text-md mb-3 md:mb-0">Border Countries:</div>
+            <div class="w-full md:w-4/6 flex flex-wrap font-light">
+                <div v-for="border in borders" :key="border">
+                    <router-link :to="{name: 'Details', params: {name: border}}">
+                        <div class="bg-gray-50 shadow-lg py-1 px-4 mb-3 text-xs mr-2 hover:bg-gray-200">{{border}}</div>
+                    </router-link>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </template>
 
 <script>
-export default {
+import { ref } from '@vue/reactivity'
+import getNation from '../composables/getNation'
 
+export default {
+    props: ['name'],
+    setup(props) {
+        const nationCard = ref('')
+        console.log(props.name)
+        const { nation, borders, error, load} =getNation(props.name)
+
+        load()
+        return { nation, borders, error}
+    }
 }
 </script>
 
