@@ -4,6 +4,7 @@ import { ref } from "@vue/reactivity"
 const getNations = () => {
     const nations = ref([])
     const error = ref(null)
+    const results = ref([])
 
     const load = async () => {
         try {
@@ -12,6 +13,7 @@ const getNations = () => {
                 throw Error('no data available')
             }
             nations.value = await data.json()
+            results.value = nations.value
             console.log('nations are', nations.value[1])
         } catch(err) {
             error.value = err.message
@@ -19,7 +21,7 @@ const getNations = () => {
         }
     }
 
-    return { nations, error, load}
+    return { nations, results, error, load}
 }
 
 export default getNations
