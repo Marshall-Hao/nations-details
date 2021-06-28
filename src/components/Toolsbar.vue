@@ -7,7 +7,7 @@
       <input class="w-full rounded p-1 focus:outline-none" @keyup="handleKeydown" v-model="search" type="text" placeholder="Search for a country..." >
     </div >
 
-    <select v-model="select" @change="handleChange" class="select2 bg-white shadow-lg rounded-md px-3 w-7/12 h-16 my-3 md:w-2/12 focus:outline-none"  name="region" id="filter" data-placeholder="Filter by Region" data-allow-clear="false">
+    <select v-model="select" @change="handleChange"  class="select2 bg-white shadow-lg rounded-md px-3 w-7/12 h-16 my-3 md:w-2/12 focus:outline-none"  name="region" data-allow-clear="false">
       <option value="All" >Filter by Region</option>
       <option value="Africa" >Africa</option>
       <option value="Americas" >Americas</option>
@@ -29,14 +29,12 @@
 <script>
 import { ref } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
-import Multiselect from 'vue-multiselect'
 
 export default {
-  components: {Multiselect},
   setup(props, context) {
     const router = useRouter()
     const search = ref('')
-    const select = ref('')
+    const select = ref('All')
     const currentRouterName = router.currentRoute.value.name
 
     const handleClick = ()=> {

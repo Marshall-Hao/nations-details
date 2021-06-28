@@ -29,13 +29,10 @@ export default {
      }
      const handleFilter = (region) => {
        if ( region === "All") {
-         console.log(region)
          results.value = nations.value
        } else {
-          console.log(region)
           results.value = nations.value.filter((nation) => 
           nation.region === region
-
          )
        }
      }
