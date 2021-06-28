@@ -4,7 +4,7 @@ import getBorder from './getBorder'
 const getNation = (name) => {
     const nation = ref('')
     const borders = ref([])
-    const error = ref(null)
+    const error = ref('')
 
     const load = async () => {
         try {
@@ -25,7 +25,7 @@ const getNation = (name) => {
         }
     }
 
-    return { nation, borders, error, load}
+    return { nation,  borders, error, load}
 }
 
 export default getNation

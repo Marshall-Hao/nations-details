@@ -14,6 +14,7 @@ const routes = [
     name: 'Details',
     component: Details,
     props: true
+    
   },
 ]
 

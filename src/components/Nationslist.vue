@@ -10,18 +10,16 @@
 </template>
 
 <script>
+import { ref, watch } from '@vue/runtime-core'
 import Card from '../components/Card.vue'
 import Spinner from '../components/Spinner.vue'
 import getNations from '../composables/getNations'
 
 export default {
+    props: ['search', 'nations'],
     components: {Card, Spinner},
-    setup() {
-        const {nations, error, load} = getNations()
-
-        load()
-
-        return  {nations, error} 
+    setup(props) {
+ 
     }
 }
 </script>

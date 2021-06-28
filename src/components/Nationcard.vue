@@ -1,6 +1,6 @@
 <template>
-    <div class="px-5 w-screen  items-center mb-5 md:px-14 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12" id="card-detail">
-        <img class="w-full h-full md:h-5/6 object-cover shadow-xl " :src="nation.flag" alt="flag">
+    <div v-if="nation" class="px-5 w-screen  items-center mb-5 md:px-14 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12" id="card-detail">
+        <img class="w-full h-full md:h-5/6 object-fit shadow-xl " :src="nation.flag" alt="flag">
         <div class="py-1 md:py-12 flex flex-col">
         <div class="text-4xl font-bold">{{nation.name}}</div>
             <div class="my-10 flex flex-wrap md:flex-nowrap justify-between">
@@ -24,29 +24,39 @@
             <div class="md:w-2/6 font-medium text-md mb-3 md:mb-0">Border Countries:</div>
             <div class="w-full md:w-4/6 flex flex-wrap font-light">
                 <div v-for="border in borders" :key="border">
-                    <router-link :to="{name: 'Details', params: {name: border}}">
-                        <div class="bg-gray-50 shadow-lg py-1 px-4 mb-3 text-xs mr-2 hover:bg-gray-200">{{border}}</div>
-                    </router-link>
+                    <router-link :key="$route.fullPath" :to="{name: 'Details', params: {name: border}}" class="bg-gray-50 shadow-lg py-1 px-4 mb-3 text-xs mr-2 hover:bg-gray-200">{{border}}</router-link>
                 </div>
             </div>
             </div>
         </div>
     </div>
 
+     <div v-else class="grid">
+        <Spinner />
+    </div>
 </template>
+
 
 <script>
 import { ref } from '@vue/reactivity'
 import getNation from '../composables/getNation'
+import Spinner from '../components/Spinner.vue'
+import { watch, watchEffect } from '@vue/runtime-core'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 
 export default {
     props: ['name'],
+    components: {Spinner},
     setup(props) {
         const nationCard = ref('')
-        console.log(props.name)
-        const { nation, borders, error, load} =getNation(props.name)
+        const route = useRoute()
+        const router = useRouter()
+        const { nation, borders, error, load} = getNation(route.params.name)
 
         load()
+        watch(route, () => {
+           router.go()
+        })
         return { nation, borders, error}
     }
 }

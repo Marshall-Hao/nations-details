@@ -4,7 +4,7 @@
       <span class="w-auto flex justify-end items-center text-gray-500 p-2">
           <i class="fas fa-search"></i>
       </span>
-      <input class="w-full rounded p-1 focus:outline-none" id="search-bar" type="text" placeholder="Search for a country..." >
+      <input class="w-full rounded p-1 focus:outline-none" @keyup="handleKeydown" v-model="search" type="text" placeholder="Search for a country..." >
     </div >
 
     <select class="select2 bg-white shadow-lg rounded-md px-3 w-7/12 h-16 my-3 md:w-2/12 focus:outline-none"  name="region" id="filter" data-placeholder="Filter by Region" data-allow-clear="false">
@@ -18,28 +18,31 @@
   </div>
   <div v-else>
     <div @click ="handleClick" class="w-screen flex justify-between px-5 md:px-14 items-center my-7" id="function-bar">
-      <!-- <router-link :to="{name: 'Home'}"> -->
-        <div @click="handleClick" class="text-gray-500 hover:text-gray-600 bg-gray-50 hover:bg-gray-200 shadow-lg px-11 py-3 flex justify-between items-center  rounded-md my-3 w-40">
+        <div  @click="handleClick" class="text-gray-500 hover:text-gray-600 bg-gray-50 hover:bg-gray-200 shadow-lg px-11 py-3 flex justify-between items-center  rounded-md my-3 w-40">
           <i class="fas fa-arrow-circle-left "></i>
           <div class=" font-medium" >Back</div>
         </div>
-      <!-- </router-link> -->
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from '@vue/reactivity'
 import { useRouter } from 'vue-router'
 
 export default {
-  setup() {
+  setup(props, context) {
     const router = useRouter()
+    const search = ref('')
     const currentRouterName = router.currentRoute.value.name
 
     const handleClick = ()=> {
       router.push({name: 'Home'})
     }
-    return { currentRouterName,handleClick }
+    const handleKeydown = ()=> {
+      context.emit('searchNation', search.value)
+    }
+    return { currentRouterName,handleClick, handleKeydown , search}
   }
 }
 </script>
