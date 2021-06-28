@@ -22,9 +22,9 @@
             </div>
             <div class="flex flex-wrap md:flex-nowrap mt-3 items-baseline">
             <div class="md:w-2/6 font-medium text-md mb-3 md:mb-0">Border Countries:</div>
-            <div class="w-full md:w-4/6 flex flex-wrap font-light">
+            <div class="w-full md:w-4/6 flex flex-wrap font-light h-16">
                 <div v-for="border in borders" :key="border">
-                    <router-link :key="$route.fullPath" :to="{name: 'Details', params: {name: border}}" class="bg-gray-50 shadow-lg py-1 px-4 mb-3 text-xs mr-2 hover:bg-gray-200">{{border}}</router-link>
+                    <router-link :key="$route.fullPath" :to="{name: 'Details', params: {name: border}}" class="bg-gray-50 dark:bg-gray-700 dark:bg-opacity-95 shadow-lg py-1 px-4  text-xs mb-3 mr-3 hover:bg-gray-200">{{border}}</router-link>
                 </div>
             </div>
             </div>
@@ -55,7 +55,9 @@ export default {
 
         load()
         watch(route, () => {
-           router.go()
+            if (route.params.name ) {
+                router.go()
+            }
         })
         return { nation, borders, error}
     }
