@@ -1,5 +1,5 @@
 <template>
-    <div v-if="nation" class="px-5 w-screen  items-center mb-5 md:px-14 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12" id="card-detail">
+    <div v-if="nation" class="px-5 w-screen  items-center mb-5 md:px-14 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-20 gap-y-12 mb-20" id="card-detail">
         <img class="w-full h-full md:h-5/6 object-fit shadow-xl " :src="nation.flag" alt="flag">
         <div class="py-1 md:py-12 flex flex-col">
         <div class="text-4xl font-bold">{{nation.name}}</div>
@@ -22,7 +22,7 @@
             </div>
             <div class="flex flex-wrap md:flex-nowrap mt-3 items-baseline">
             <div class="md:w-2/6 font-medium text-md mb-3 md:mb-0">Border Countries:</div>
-            <div class="w-full md:w-4/6 flex flex-wrap font-light h-16">
+            <div class="md:w-4/6 flex flex-wrap font-light h-16">
                 <div v-for="border in borders" :key="border">
                     <router-link :key="$route.fullPath" :to="{name: 'Details', params: {name: border}}" class="bg-gray-50 dark:bg-gray-700 dark:bg-opacity-95 shadow-lg py-1 px-4  text-xs mb-3 mr-3 hover:bg-gray-200">{{border}}</router-link>
                 </div>
@@ -30,10 +30,10 @@
             </div>
         </div>
     </div>
-
      <div v-else class="grid">
         <Spinner />
     </div>
+    <div class="h-20"></div>
 </template>
 
 

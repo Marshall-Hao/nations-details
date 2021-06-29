@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "nations-list",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
